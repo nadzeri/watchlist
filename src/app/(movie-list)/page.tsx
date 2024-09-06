@@ -1,3 +1,6 @@
+import { Card } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 export default function MovieList() {
   return (
     <>
@@ -10,6 +13,27 @@ export default function MovieList() {
           Keep track of films you&apos;ve seen and ones you want to watch.
         </p>
       </section>
+
+      <Card className="p-3">
+        <Tabs defaultValue="watched" className="w-full">
+          <TabsList className="w-full font-geist-mono">
+            <TabsTrigger
+              value="watched"
+              className="w-1/2 data-[state=active]:bg-watched data-[state=active]:text-white"
+            >
+              WATCHED
+            </TabsTrigger>
+            <TabsTrigger
+              value="unwatched"
+              className="w-1/2 data-[state=active]:bg-unwatched data-[state=active]:text-white"
+            >
+              UNWATCHED
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="watched">Watched content here</TabsContent>
+          <TabsContent value="unwatched">Unwatched content here</TabsContent>
+        </Tabs>
+      </Card>
     </>
   );
 }
