@@ -23,7 +23,7 @@ export default async function omdbApi(
   };
 
   // Perform the request
-  const response = await fetch(`${url}?${searchParamsString}`, config);
+  const response = await fetch(`${url}?${searchParamsString}`);
 
   if (!response.ok) {
     throw new Error(`Error: ${response.statusText}`);

@@ -1,4 +1,4 @@
-export default function debounce(callback: (...args: unknown[]) => unknown, delay: number) {
+export default function debounce(callback: Function, delay: number) {
   let timeoutId: NodeJS.Timeout;
 
   return function (...args: unknown[]) {

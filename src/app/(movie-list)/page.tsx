@@ -1,13 +1,40 @@
+'use client';
+
+import SearchMovie from '@/components/searchMovie';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Movie } from '@/models/movie';
 import Image from 'next/image';
-import SearchMovie from '@/components/searchMovie';
-import { searchMovies } from '@/services/movieService';
+import { useState } from 'react';
 
-export default async function MovieList() {
-  const movies: Movie[] = await searchMovies('batman');
+export default function MovieList() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  const handleOnWatched = (movie: Movie) => {
+    movie.isWatched = true;
+    setMovies([movie, ...movies]);
+  };
+
+  const handleOnUnwatched = (movie: Movie) => {
+    movie.isWatched = false;
+    setMovies([movie, ...movies]);
+  };
+
+  const MovieList = ({ movies }: { movies: Movie[] }) => {
+    return (
+      <>
+        {movies.map((movie, idx) => (
+          <>
+            <div key={movie.imdbID} className="flex gap-2 p-2 font-geist-sans text-sm">
+              {movie.Title}
+            </div>
+            {idx < movies.length - 1 && <Separator />}
+          </>
+        ))}
+      </>
+    );
+  };
 
   return (
     <>
@@ -22,7 +49,7 @@ export default async function MovieList() {
       </section>
 
       <Card className="p-3">
-        <SearchMovie />
+        <SearchMovie onWatched={handleOnWatched} onUnwatched={handleOnUnwatched} />
         <Tabs defaultValue="watched" className="w-full">
           <TabsList className="w-full font-geist-mono">
             <TabsTrigger
@@ -53,16 +80,11 @@ export default async function MovieList() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="watched">
-            {movies.map((movie, idx) => (
-              <>
-                <div key={movie.imdbID} className="flex gap-2 p-2 font-geist-sans text-sm">
-                  {movie.Title}
-                </div>
-                {idx < movies.length - 1 && <Separator />}
-              </>
-            ))}
+            <MovieList movies={movies.filter((movie) => movie.isWatched)} />
           </TabsContent>
-          <TabsContent value="unwatched">Unwatched content here</TabsContent>
+          <TabsContent value="unwatched">
+            <MovieList movies={movies.filter((movie) => !movie.isWatched)} />
+          </TabsContent>
         </Tabs>
       </Card>
     </>
