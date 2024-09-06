@@ -3,7 +3,6 @@ import combinePath from '@/utils/combinePath';
 export default async function omdbApi(
   endpoint: string,
   queryParams: { [key: string]: string } = {},
-  options: RequestInit = {},
 ) {
   const baseUrl: string = process.env.NEXT_PUBLIC_OMDB_API_URL || '';
   const url: string = combinePath(baseUrl, endpoint);
@@ -12,15 +11,6 @@ export default async function omdbApi(
 
   const searchParams = new URLSearchParams(queryParams);
   const searchParamsString = searchParams.toString();
-
-  // Set default headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-    ...options,
-  };
 
   // Perform the request
   const response = await fetch(`${url}?${searchParamsString}`);

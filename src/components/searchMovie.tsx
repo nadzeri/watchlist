@@ -25,9 +25,9 @@ export default function SearchMovie({
   onDeleteMovie,
 }: {
   selectedMovies: Movie[];
-  onAddMovie: Function;
-  onToggleWatch: Function;
-  onDeleteMovie: Function;
+  onAddMovie: (movie: Movie) => void;
+  onToggleWatch: (movie: Movie) => void;
+  onDeleteMovie: (movie: Movie) => void;
 }) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -86,8 +86,9 @@ export default function SearchMovie({
                     <Button
                       variant="ghost"
                       size="icon"
+                      // eslint-disable-next-line
                       className={
-                        'h-6 w-6 hover:bg-watched-10 ' +
+                        'hover:bg-watched-10 h-6 w-6 ' +
                         (isWatchedSelected(selectedMovies, movie) ? 'bg-watched-10' : '')
                       }
                       onClick={() => handleOnWatched(movie)}
@@ -103,8 +104,9 @@ export default function SearchMovie({
                     <Button
                       variant="ghost"
                       size="icon"
+                      // eslint-disable-next-line
                       className={
-                        'h-6 w-6 hover:bg-unwatched-10 ' +
+                        'hover:bg-unwatched-10 h-6 w-6 ' +
                         (isUnwatchedSelected(selectedMovies, movie) ? 'bg-unwatched-10' : '')
                       }
                       onClick={() => handleOnUnwatched(movie)}
