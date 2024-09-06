@@ -6,7 +6,9 @@
   --background: #ffffff;
   --foreground: #141414;
   --watched: #4f9b90;
+  --watched-10: #4f9b901f;
   --unwatched: #d0364c;
+  --unwatched-10: #f5d6da;
   --accent: #ebebeb;
 }
 

@@ -13,7 +13,9 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         watched: 'var(--watched)',
+        'watched-10': 'var(--watched-10)',
         unwatched: 'var(--unwatched)',
+        'unwatched-10': 'var(--unwatched-10)',
         accent: 'var(--accent)',
       },
       fontFamily: {

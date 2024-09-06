@@ -11,16 +11,22 @@ import {
 import { Movie } from '@/models/movie';
 import { searchMovies } from '@/services/movieService';
 import debounce from '@/utils/debounce';
+import isUnwatchedSelected from '@/utils/isUnwatchedSelected';
+import isWatchedSelected from '@/utils/isWatchedSelected';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from './ui/button';
 
 export default function SearchMovie({
-  onWatched,
-  onUnwatched,
+  selectedMovies,
+  onAddMovie,
+  onToggleWatch,
+  onDeleteMovie,
 }: {
-  onWatched: Function;
-  onUnwatched: Function;
+  selectedMovies: Movie[];
+  onAddMovie: Function;
+  onToggleWatch: Function;
+  onDeleteMovie: Function;
 }) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -39,11 +45,25 @@ export default function SearchMovie({
   };
 
   const handleOnWatched = (movie: Movie) => {
-    onWatched(movie);
+    if (isWatchedSelected(selectedMovies, movie)) {
+      onDeleteMovie(movie);
+    } else if (isUnwatchedSelected(selectedMovies, movie)) {
+      onToggleWatch(movie);
+    } else {
+      movie.isWatched = true;
+      onAddMovie(movie);
+    }
   };
 
   const handleOnUnwatched = (movie: Movie) => {
-    onUnwatched(movie);
+    if (isUnwatchedSelected(selectedMovies, movie)) {
+      onDeleteMovie(movie);
+    } else if (isWatchedSelected(selectedMovies, movie)) {
+      onToggleWatch(movie);
+    } else {
+      movie.isWatched = false;
+      onAddMovie(movie);
+    }
   };
 
   return (
@@ -60,25 +80,24 @@ export default function SearchMovie({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-6 w-6"
+                    className={
+                      'hover:bg-watched-10 h-6 w-6 ' +
+                      (isWatchedSelected(selectedMovies, movie) ? 'bg-watched-10' : '')
+                    }
                     onClick={() => handleOnWatched(movie)}
                   >
-                    <Image
-                      className="mr-1"
-                      src="icons/eye-check.svg"
-                      width={14}
-                      height={14}
-                      alt="Eye check icon"
-                    />
+                    <Image src="icons/eye-check.svg" width={14} height={14} alt="Eye check icon" />
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-6 w-6"
+                    className={
+                      'hover:bg-unwatched-10 h-6 w-6 ' +
+                      (isUnwatchedSelected(selectedMovies, movie) ? 'bg-unwatched-10' : '')
+                    }
                     onClick={() => handleOnUnwatched(movie)}
                   >
                     <Image
-                      className="mr-1"
                       src="icons/eye-remove.svg"
                       width={14}
                       height={14}

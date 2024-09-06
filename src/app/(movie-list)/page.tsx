@@ -11,14 +11,22 @@ import { useState } from 'react';
 export default function MovieList() {
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  const handleOnWatched = (movie: Movie) => {
-    movie.isWatched = true;
+  const handleAddMovie = (movie: Movie) => {
     setMovies([movie, ...movies]);
   };
 
-  const handleOnUnwatched = (movie: Movie) => {
-    movie.isWatched = false;
-    setMovies([movie, ...movies]);
+  const handleDeleteMovie = (movie: Movie) => {
+    setMovies(movies.filter((m) => m.imdbID !== movie.imdbID));
+  };
+
+  const handleToggleWatch = (movie: Movie) => {
+    const existingMovie = movies.find((m) => m.imdbID === movie.imdbID);
+    if (!existingMovie) {
+      return;
+    }
+
+    existingMovie.isWatched = !existingMovie.isWatched;
+    setMovies([...movies]);
   };
 
   const MovieList = ({ movies }: { movies: Movie[] }) => {
@@ -49,7 +57,12 @@ export default function MovieList() {
       </section>
 
       <Card className="p-3">
-        <SearchMovie onWatched={handleOnWatched} onUnwatched={handleOnUnwatched} />
+        <SearchMovie
+          selectedMovies={movies}
+          onAddMovie={handleAddMovie}
+          onToggleWatch={handleToggleWatch}
+          onDeleteMovie={handleDeleteMovie}
+        />
         <Tabs defaultValue="watched" className="w-full">
           <TabsList className="w-full font-geist-mono">
             <TabsTrigger
