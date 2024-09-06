@@ -15,6 +15,10 @@ const config: Config = {
         unwatched: 'var(--unwatched)',
         accent: 'var(--accent)',
       },
+      fontFamily: {
+        'geist-sans': 'var(--font-geist-sans)',
+        'geist-mono': 'var(--font-geist-mono)',
+      },
     },
   },
   plugins: [],
