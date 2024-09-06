@@ -74,6 +74,12 @@ export default function MovieList() {
               {idx < filterredMovies.length - 1 && <Separator />}
             </>
           ))}
+
+        {movies.filter((movie) => movie.isWatched === isWatched).length === 0 && (
+          <div className="flex justify-center p-2 font-geist-sans text-sm text-gray-500">
+            No movies found.
+          </div>
+        )}
       </>
     );
   };
@@ -90,7 +96,7 @@ export default function MovieList() {
         </p>
       </section>
 
-      <Card className="p-3">
+      <Card className="flex flex-col gap-3 p-3">
         <SearchMovie
           selectedMovies={movies}
           onAddMovie={handleAddMovie}

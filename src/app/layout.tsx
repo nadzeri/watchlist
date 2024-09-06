@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex justify-center antialiased`}
       >
-        <main className="w-full max-w-[600px] px-4 sm:p-0">{children}</main>
+        <main className="w-full max-w-[600px] p-4 sm:p-0 sm:py-8">{children}</main>
       </body>
     </html>
   );

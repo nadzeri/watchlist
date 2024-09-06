@@ -3,5 +3,5 @@ export default function MovieListLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="grid min-h-screen items-center p-4 sm:p-0">{children}</div>;
+  return <div className="flex flex-col gap-4 p-4 sm:gap-12 sm:p-0">{children}</div>;
 }
