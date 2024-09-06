@@ -2,8 +2,9 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Movie } from '@/models/movie';
-import { searchMovies } from '@/services/movieService';
 import Image from 'next/image';
+import SearchMovie from '@/components/searchMovie';
+import { searchMovies } from '@/services/movieService';
 
 export default async function MovieList() {
   const movies: Movie[] = await searchMovies('batman');
@@ -21,6 +22,7 @@ export default async function MovieList() {
       </section>
 
       <Card className="p-3">
+        <SearchMovie />
         <Tabs defaultValue="watched" className="w-full">
           <TabsList className="w-full font-geist-mono">
             <TabsTrigger
