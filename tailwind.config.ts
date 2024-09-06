@@ -11,6 +11,9 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        watched: 'var(--watched)',
+        unwatched: 'var(--unwatched)',
+        accent: 'var(--accent)',
       },
     },
   },
