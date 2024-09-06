@@ -51,7 +51,7 @@ export default function MovieList() {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" onClick={() => ''}>
+                    <Button className="shrink-0" variant="ghost" size="icon" onClick={() => ''}>
                       <Ellipsis size={22} />
                     </Button>
                   </DropdownMenuTrigger>
