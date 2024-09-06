@@ -1,8 +1,13 @@
 import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Movie } from '@/models/movie';
+import { searchMovies } from '@/services/movieService';
 import Image from 'next/image';
 
-export default function MovieList() {
+export default async function MovieList() {
+  const movies: Movie[] = await searchMovies('batman');
+
   return (
     <>
       <section className="flex flex-col gap-1">
@@ -45,7 +50,16 @@ export default function MovieList() {
               UNWATCHED
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="watched">Watched content here</TabsContent>
+          <TabsContent value="watched">
+            {movies.map((movie, idx) => (
+              <>
+                <div key={movie.imdbID} className="flex gap-2 p-2 font-geist-sans text-sm">
+                  {movie.Title}
+                </div>
+                {idx < movies.length - 1 && <Separator />}
+              </>
+            ))}
+          </TabsContent>
           <TabsContent value="unwatched">Unwatched content here</TabsContent>
         </Tabs>
       </Card>
