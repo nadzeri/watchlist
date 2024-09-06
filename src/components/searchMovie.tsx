@@ -13,7 +13,7 @@ import { searchMovies } from '@/services/movieService';
 import debounce from '@/utils/debounce';
 import isUnwatchedSelected from '@/utils/isUnwatchedSelected';
 import isWatchedSelected from '@/utils/isWatchedSelected';
-import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from './ui/button';
 
@@ -86,7 +86,13 @@ export default function SearchMovie({
                     }
                     onClick={() => handleOnWatched(movie)}
                   >
-                    <Image src="icons/eye-check.svg" width={14} height={14} alt="Eye check icon" />
+                    <Eye
+                      size={14}
+                      className={
+                        'hover:text-watched ' +
+                        (isWatchedSelected(selectedMovies, movie) ? 'text-watched' : '')
+                      }
+                    />
                   </Button>
                   <Button
                     variant="ghost"
@@ -97,11 +103,12 @@ export default function SearchMovie({
                     }
                     onClick={() => handleOnUnwatched(movie)}
                   >
-                    <Image
-                      src="icons/eye-remove.svg"
-                      width={14}
-                      height={14}
-                      alt="Eye remove icon"
+                    <EyeOff
+                      size={14}
+                      className={
+                        'hover:text-unwatched ' +
+                        (isUnwatchedSelected(selectedMovies, movie) ? 'text-unwatched' : '')
+                      }
                     />
                   </Button>
                 </div>

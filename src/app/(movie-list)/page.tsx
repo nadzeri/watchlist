@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Movie } from '@/models/movie';
-import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
 export default function MovieList() {
@@ -69,26 +69,14 @@ export default function MovieList() {
               value="watched"
               className="w-1/2 text-black data-[state=active]:bg-watched data-[state=active]:text-white"
             >
-              <Image
-                className="mr-1"
-                src="icons/eye-check.svg"
-                width={14}
-                height={14}
-                alt="Eye check icon"
-              />
+              <Eye size={14} className="mr-1" />
               WATCHED
             </TabsTrigger>
             <TabsTrigger
               value="unwatched"
               className="w-1/2 text-black data-[state=active]:bg-unwatched data-[state=active]:text-white"
             >
-              <Image
-                className="mr-1"
-                src="icons/eye-remove.svg"
-                width={14}
-                height={14}
-                alt="Eye check icon"
-              />
+              <EyeOff size={14} className="mr-1" />
               UNWATCHED
             </TabsTrigger>
           </TabsList>
