@@ -81,7 +81,7 @@ export default function SearchMovie({
                     variant="ghost"
                     size="icon"
                     className={
-                      'hover:bg-watched-10 h-6 w-6 ' +
+                      'h-6 w-6 hover:bg-watched-10 ' +
                       (isWatchedSelected(selectedMovies, movie) ? 'bg-watched-10' : '')
                     }
                     onClick={() => handleOnWatched(movie)}
@@ -98,7 +98,7 @@ export default function SearchMovie({
                     variant="ghost"
                     size="icon"
                     className={
-                      'hover:bg-unwatched-10 h-6 w-6 ' +
+                      'h-6 w-6 hover:bg-unwatched-10 ' +
                       (isUnwatchedSelected(selectedMovies, movie) ? 'bg-unwatched-10' : '')
                     }
                     onClick={() => handleOnUnwatched(movie)}

@@ -1,11 +1,18 @@
 'use client';
 
 import SearchMovie from '@/components/searchMovie';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Movie } from '@/models/movie';
-import { Eye, EyeOff } from 'lucide-react';
+import { Ellipsis, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
 export default function MovieList() {
@@ -29,17 +36,44 @@ export default function MovieList() {
     setMovies([...movies]);
   };
 
-  const MovieList = ({ movies }: { movies: Movie[] }) => {
+  const MovieList = ({ movies, isWatched }: { movies: Movie[]; isWatched: boolean }) => {
     return (
       <>
-        {movies.map((movie, idx) => (
-          <>
-            <div key={movie.imdbID} className="flex gap-2 p-2 font-geist-sans text-sm">
-              {movie.Title}
-            </div>
-            {idx < movies.length - 1 && <Separator />}
-          </>
-        ))}
+        {movies
+          .filter((movie) => movie.isWatched === isWatched)
+          .map((movie, idx, filterredMovies) => (
+            <>
+              <div
+                key={movie.imdbID}
+                className="flex items-center justify-between gap-2 px-2 font-geist-sans text-sm"
+              >
+                <div>{movie.Title}</div>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" onClick={() => ''}>
+                      <Ellipsis size={22} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => handleToggleWatch(movie)}
+                    >
+                      Move to unwatched
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => handleDeleteMovie(movie)}
+                    >
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              {idx < filterredMovies.length - 1 && <Separator />}
+            </>
+          ))}
       </>
     );
   };
@@ -81,10 +115,10 @@ export default function MovieList() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="watched">
-            <MovieList movies={movies.filter((movie) => movie.isWatched)} />
+            <MovieList movies={movies} isWatched={true} />
           </TabsContent>
           <TabsContent value="unwatched">
-            <MovieList movies={movies.filter((movie) => !movie.isWatched)} />
+            <MovieList movies={movies} isWatched={false} />
           </TabsContent>
         </Tabs>
       </Card>
