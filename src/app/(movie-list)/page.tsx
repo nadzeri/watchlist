@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Image from 'next/image';
 
 export default function MovieList() {
   return (
@@ -19,14 +20,28 @@ export default function MovieList() {
           <TabsList className="w-full font-geist-mono">
             <TabsTrigger
               value="watched"
-              className="w-1/2 data-[state=active]:bg-watched data-[state=active]:text-white"
+              className="w-1/2 text-black data-[state=active]:bg-watched data-[state=active]:text-white"
             >
+              <Image
+                className="mr-1"
+                src="icons/eye-check.svg"
+                width={14}
+                height={14}
+                alt="Eye check icon"
+              />
               WATCHED
             </TabsTrigger>
             <TabsTrigger
               value="unwatched"
-              className="w-1/2 data-[state=active]:bg-unwatched data-[state=active]:text-white"
+              className="w-1/2 text-black data-[state=active]:bg-unwatched data-[state=active]:text-white"
             >
+              <Image
+                className="mr-1"
+                src="icons/eye-remove.svg"
+                width={14}
+                height={14}
+                alt="Eye check icon"
+              />
               UNWATCHED
             </TabsTrigger>
           </TabsList>
